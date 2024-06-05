@@ -33,7 +33,7 @@ public class ReceivingScreen extends Thread
                 image1 = ImageIO.read(new ByteArrayInputStream(bytes));
                 image1 = image1.getScaledInstance(cPanel.getWidth(), cPanel.getHeight, Image.SCALE_FAST);
                 Graphics graphics = cPanel.Graphics();
-                graphics.drawImage(image1, 0, 0, cPanel.getWidth(), cPanel.getHeight(), cPanel );
+                graphics.drawImage(image1, 0, 0, cPanel.getWidth() , cPanel.getHeight(), cPanel );
 
             }catch(IOException e)
             {
