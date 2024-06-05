@@ -64,7 +64,7 @@ public class Authentification extends JFrame implements ActionListener
             {
                 e.printStackTrace();
             }
-            CrateFrame abc = new CreateFrame(cSocket, width, height);
+            CreateFrame abc = new CreateFrame(cSocket, width, height);
             dispose();
         }else
         {
