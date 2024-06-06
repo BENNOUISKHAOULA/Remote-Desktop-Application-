@@ -9,8 +9,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Authentification extends JFrame implements ActionListener
-{
+public class Authentification extends JFrame implements ActionListener {
     private Socket cSocket = null;
     DataOutputStream passchk = null;
     DataInputStream verification = null;
@@ -18,10 +17,10 @@ public class Authentification extends JFrame implements ActionListener
     JButton submit;
     JPanel panel;
     JLabel label, label1;
-    String width="", height="";
+    String width = "", height = "";
     JTextField text1;
-    Authentification(Socket cSocket)
-    {
+
+    public Authentification(Socket cSocket) {
         label1 = new JLabel();
         label1.setText("Enter Password");
         text1 = new JTextField(15);
@@ -30,7 +29,7 @@ public class Authentification extends JFrame implements ActionListener
         label.setText("");
         this.setLayout(new BorderLayout());
         submit = new JButton("Submit");
-        panel = new JPanel(new GridLayout(2,1));
+        panel = new JPanel(new GridLayout(2, 1));
         panel.add(label1);
         panel.add(text1);
         panel.add(label);
@@ -39,35 +38,28 @@ public class Authentification extends JFrame implements ActionListener
         submit.addActionListener(this);
         setTitle("Authentification");
     }
-    public void actionPerformed(ActionEvent ae)
-    {
+
+    public void actionPerformed(ActionEvent ae) {
         String value1 = text1.getText();
-        try
-        {
+        try {
             passchk = new DataOutputStream(cSocket.getOutputStream());
             verification = new DataInputStream(cSocket.getInputStream());
             passchk.writeUTF(value1);
             verify = verification.readUTF();
 
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(verify.equals("valid"))
-        {
-            try
-            {
+        if (verify.equals("valid")) {
+            try {
                 width = verification.readUTF();
                 height = verification.readUTF();
-
-            }catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             CreateFrame abc = new CreateFrame(cSocket, width, height);
             dispose();
-        }else
-        {
+        } else {
             System.out.print("Please enter valid password");
             JOptionPane.showMessageDialog(this, "The Password is incorrect", "Error", JOptionPane.ERROR_MESSAGE);
             dispose();
