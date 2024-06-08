@@ -21,29 +21,22 @@ public class ReceivingScreen extends Thread {
     public void run() {
         while (continueLoop) {
             try {
-                byte[] bytes = new byte[1024 * 1024];
-                int count = 0;
-                int length = bytes.length;
-                while (count < length) {
-                    int read = oin.read(bytes, count, length - count);
-                    if (read == -1) {
-                        throw new IOException("End of stream reached");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int read = -1;
+                while ((read = oin.read(buffer)) != -1) {
+                    baos.write(buffer, 0, read);
+                    if (buffer[read - 2] == (byte) -1 && buffer[read - 1] == (byte) -39) {
+                        break;
                     }
-                    count += read;
                 }
-
-                // Assuming the JPEG format with markers -1 and -39
-                if (count > 4 && bytes[count - 2] == (byte) -1 && bytes[count - 1] == (byte) -39) {
-                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes, 0, count);
-                    image1 = ImageIO.read(byteArrayInputStream);
-                    image1 = image1.getScaledInstance(cPanel.getWidth(), cPanel.getHeight(), Image.SCALE_FAST);
-                    Graphics graphics = cPanel.getGraphics();
-                    graphics.drawImage(image1, 0, 0, cPanel.getWidth(), cPanel.getHeight(), cPanel);
-                }
-
+                byte[] imageBytes = baos.toByteArray();
+                image1 = ImageIO.read(new ByteArrayInputStream(imageBytes));
+                Graphics2D graphics = (Graphics2D) cPanel.getGraphics();
+                graphics.drawImage(image1, 0, 0, cPanel.getWidth(), cPanel.getHeight(), null);
             } catch (IOException e) {
                 e.printStackTrace();
-                continueLoop = false; // Exit the loop on IOException
+                continueLoop = false;
             }
         }
     }

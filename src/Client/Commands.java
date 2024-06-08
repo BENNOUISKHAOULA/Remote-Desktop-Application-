@@ -13,7 +13,7 @@ public enum Commands {
         this.abbrev = abbrev;
     }
 
-    public int getAbbrev() {  // Changement du type de retour de void à int
+    public int getAbbrev() {
         return abbrev;
     }
 }

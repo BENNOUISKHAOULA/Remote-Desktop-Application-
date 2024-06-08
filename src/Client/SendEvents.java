@@ -78,7 +78,11 @@ public class SendEvents implements KeyListener, MouseMotionListener, MouseListen
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // Implementation for mouseReleased
+        writer.println(Commands.RELEASE_MOUSE.getAbbrev());
+        int button = e.getButton();
+        int xButton = getButtonMask(button);
+        writer.println(xButton);
+        writer.flush();
     }
 
     @Override
@@ -98,5 +102,18 @@ public class SendEvents implements KeyListener, MouseMotionListener, MouseListen
         writer.println(Commands.RELEASE_KEY.getAbbrev());
         writer.println(e.getKeyCode());
         writer.flush();
+    }
+
+    private int getButtonMask(int button) {
+        switch (button) {
+            case MouseEvent.BUTTON1:
+                return InputEvent.BUTTON1_DOWN_MASK;
+            case MouseEvent.BUTTON2:
+                return InputEvent.BUTTON2_DOWN_MASK;
+            case MouseEvent.BUTTON3:
+                return InputEvent.BUTTON3_DOWN_MASK;
+            default:
+                return 16; // Default to BUTTON1_DOWN_MASK for safety
+        }
     }
 }
