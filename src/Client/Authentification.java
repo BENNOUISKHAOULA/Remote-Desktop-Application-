@@ -21,8 +21,14 @@ public class Authentification extends JFrame implements ActionListener {
     JTextField text1;
 
     public Authentification(Socket cSocket) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         label1 = new JLabel();
-        label1.setText("Enter Password");
+        label1.setText("  Enter Password");
         text1 = new JTextField(15);
         this.cSocket = cSocket;
         label = new JLabel();
@@ -37,6 +43,8 @@ public class Authentification extends JFrame implements ActionListener {
         add(panel, BorderLayout.CENTER);
         submit.addActionListener(this);
         setTitle("Authentification");
+        setSize(400, 150);
+
     }
 
     public void actionPerformed(ActionEvent ae) {

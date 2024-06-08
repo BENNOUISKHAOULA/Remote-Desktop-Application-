@@ -16,6 +16,12 @@ public class CreateFrame extends Thread {
     private JPanel cPanel = new JPanel();
 
     public CreateFrame(Socket cSocket, String width, String height) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         this.width = width;
         this.height = height;
         this.cSocket = cSocket;
