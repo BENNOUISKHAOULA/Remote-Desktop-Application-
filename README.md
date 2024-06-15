@@ -6,6 +6,7 @@ Java Development Kit (JDK) 8 or higher
 Internet connection to access the server
 #Getting Started
 Clone the repository:
+
     git clone https://github.com/BENNOUISKHAOULA/Remote-Desktop-Application-.git
     cd remoteDesktopClient
 #Compile the project:
@@ -53,6 +54,10 @@ Maps the local coordinates and events to the server's screen dimensions.
 
 #Commands.java
 Defines the command codes for various user input events (mouse press, mouse release, key press, key release, and mouse move).
+
+Fot the Server side here is the repository to clone 
+
+    git clone https://github.com/BENNOUISKHAOULA/remoteDesktopServer.git
 
 #Contributions
 Contributions to the project are welcome. Please fork the repository and create a pull request with your changes.
